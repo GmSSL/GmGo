@@ -391,12 +391,14 @@ func UnmarshalCompressed(curve Curve, data []byte) (x, y *big.Int) {
 var initonce sync.Once
 var p384 *CurveParams
 var p521 *CurveParams
+var sm2p256v1 *CurveParams
 
 func initAll() {
 	initP224()
 	initP256()
 	initP384()
 	initP521()
+	initSM2()
 }
 
 func initP384() {
@@ -419,6 +421,16 @@ func initP521() {
 	p521.Gx, _ = new(big.Int).SetString("c6858e06b70404e9cd9e3ecb662395b4429c648139053fb521f828af606b4d3dbaa14b5e77efe75928fe1dc127a2ffa8de3348b3c1856a429bf97e7e31c2e5bd66", 16)
 	p521.Gy, _ = new(big.Int).SetString("11839296a789a3bc0045c8a5fb42c7d1bd998f54449579b446817afbd17273e662c97ee72995ef42640c550b9013fad0761353c7086a272c24088be94769fd16650", 16)
 	p521.BitSize = 521
+}
+
+func initSM2() {
+	sm2p256v1 = &CurveParams{Name: "sm2p256v1"}
+	sm2p256v1.P, _ = new(big.Int).SetString("115792089210356248762697446949407573530086143415290314195533631308867097853951", 10)
+	sm2p256v1.N, _ = new(big.Int).SetString("115792089210356248762697446949407573529996955224135760342422259061068512044369", 10)
+	sm2p256v1.B, _ = new(big.Int).SetString("5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b", 16)
+	sm2p256v1.Gx, _ = new(big.Int).SetString("6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296", 16)
+	sm2p256v1.Gy, _ = new(big.Int).SetString("4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5", 16)
+	sm2p256v1.BitSize = 256
 }
 
 // P256 returns a Curve which implements NIST P-256 (FIPS 186-3, section D.2.3),
@@ -456,4 +468,9 @@ func P384() Curve {
 func P521() Curve {
 	initonce.Do(initAll)
 	return p521
+}
+
+func SM2() Curve {
+	initonce.Do(initAll)
+	return sm2p256v1
 }

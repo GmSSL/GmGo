@@ -465,6 +465,7 @@ func TestInfinity(t *testing.T) {
 		{"P-256/Generic", P256().Params()},
 		{"P-384", P384()},
 		{"P-521", P521()},
+		{"sm2p256v1", SM2()},
 	}
 	if testing.Short() {
 		tests = tests[:1]
@@ -698,6 +699,14 @@ func TestMarshalCompressed(t *testing.T) {
 		}
 		testMarshalCompressed(t, P521(), x, y, nil)
 	})
+	t.Run("sm2p256v1", func(t *testing.T) {
+		_, x, y, err := GenerateKey(SM2(), rand.Reader)
+		if err != nil {
+			t.Fatal(err)
+		}
+		testMarshalCompressed(t, SM2(), x, y, nil)
+	})
+
 }
 
 func testMarshalCompressed(t *testing.T, curve Curve, x, y *big.Int, want []byte) {

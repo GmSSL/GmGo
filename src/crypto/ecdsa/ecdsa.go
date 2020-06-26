@@ -237,6 +237,10 @@ func Sign(rand io.Reader, priv *PrivateKey, hash []byte) (r, s *big.Int, err err
 	return sign(priv, &csprng, c, hash)
 }
 
+func signSM2(priv *PrivateKey, csprng *cipher.StreamReader, c elliptic.Curve, hash []byte) (r, s *big.Int, err error) {
+	return
+}
+
 func signGeneric(priv *PrivateKey, csprng *cipher.StreamReader, c elliptic.Curve, hash []byte) (r, s *big.Int, err error) {
 	N := c.Params().N
 	if N.Sign() == 0 {
@@ -300,6 +304,10 @@ func Verify(pub *PublicKey, hash []byte, r, s *big.Int) bool {
 		return false
 	}
 	return verify(pub, c, hash, r, s)
+}
+
+func verifySM2(pub *PublicKey, c elliptic.Curve, hash []byte, r, s *big.Int) bool {
+	return false
 }
 
 func verifyGeneric(pub *PublicKey, c elliptic.Curve, hash []byte, r, s *big.Int) bool {
