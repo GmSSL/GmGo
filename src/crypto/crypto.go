@@ -60,6 +60,8 @@ func (h Hash) String() string {
 		return "BLAKE2b-384"
 	case BLAKE2b_512:
 		return "BLAKE2b-512"
+	case SM3:
+		return "SM3"
 	default:
 		return "unknown hash value " + strconv.Itoa(int(h))
 	}
@@ -85,6 +87,7 @@ const (
 	BLAKE2b_256                 // import golang.org/x/crypto/blake2b
 	BLAKE2b_384                 // import golang.org/x/crypto/blake2b
 	BLAKE2b_512                 // import golang.org/x/crypto/blake2b
+	SM3
 	maxHash
 )
 
@@ -108,6 +111,7 @@ var digestSizes = []uint8{
 	BLAKE2b_256: 32,
 	BLAKE2b_384: 48,
 	BLAKE2b_512: 64,
+	SM3:         32,
 }
 
 // Size returns the length, in bytes, of a digest resulting from the given hash
