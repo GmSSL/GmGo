@@ -361,6 +361,7 @@ var pkgDeps = map[string][]string{
 	"crypto/sha256":            {"L3"},
 	"crypto/sha512":            {"L3"},
 	"crypto/sm3":               {"L3"},
+	"crypto/sm4":               {"L3"},
 
 	"CRYPTO": {
 		"crypto/aes",
@@ -373,6 +374,7 @@ var pkgDeps = map[string][]string{
 		"crypto/sha256",
 		"crypto/sha512",
 		"crypto/sm3",
+		"crypto/sm4",
 		"golang.org/x/crypto/chacha20poly1305",
 		"golang.org/x/crypto/curve25519",
 		"golang.org/x/crypto/poly1305",
